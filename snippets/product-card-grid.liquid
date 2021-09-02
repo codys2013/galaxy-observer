@@ -44,6 +44,15 @@
 
   <div class="h4 grid-view-item__title product-card__title" aria-hidden="true">{{ product.title }}</div>
 
-  {% include 'product-price-listing', product: product, show_vendor: show_vendor %}
+  {% for tag in product.tags %}
+  {% if tag contains 'affiliate_' %}
+  {% assign isAffiliate = true %}
+  {% endif %}
+  {% endfor %}
 
+  {% if isAffiliate %}
+  <h3>See Offer</h3>
+  {% else %}
+  {% include 'product-price-listing', product: product, show_vendor: show_vendor %}
+  {% endif %}
 </div>

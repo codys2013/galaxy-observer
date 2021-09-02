@@ -136,7 +136,17 @@
 
         <h1 class="product-single__title">{{ product.title }}</h1>
         <script>window.performance.mark('debut:product:title_visible');</script>
-        
+
+        {% for tag in product.tags %}
+          {% if tag contains 'affiliate_' %}
+            {% assign isAffiliate = true %}
+            {% assign affiliateURL = tag | remove_first: 'affiliate_' %}
+          {% endif %}
+        {% endfor %}
+
+        {% if isAffiliate %}
+          <a href="{{affiliateURL}}" target="_blank"><button class="btn">See on Amazon</button></a>
+        {% else %}
           <div>⭐⭐⭐⭐⭐</div>
 
           <div class="product__price">
@@ -242,6 +252,7 @@
               </div>
             </div>
           {% endform %}
+          {% endif %}
         </div>
 
         {%- comment -%}
